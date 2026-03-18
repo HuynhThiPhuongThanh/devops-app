@@ -2,20 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone') {
+        stage('Install') {
             steps {
-                git branch: 'main', url: 'https://github.com/HuynhThiPhuongThanh/devops-app.git'
+                sh 'npm install'
             }
         }
 
-        stage('Install & Lint') {
-            agent {
-                docker {
-                    image 'node:18'
-                }
-            }
+        stage('Lint') {
             steps {
-                sh 'npm install'
                 sh 'npm run lint'
             }
         }
