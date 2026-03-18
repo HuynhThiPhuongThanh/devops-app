@@ -5,20 +5,19 @@ pipeline {
 
         stage('Debug') {
             steps {
-                sh 'echo WORKSPACE=$WORKSPACE'
-                sh 'ls -la $WORKSPACE'
+                sh 'ls -la'
             }
         }
 
         stage('Install') {
             steps {
-                sh 'docker run --rm -v $WORKSPACE:/app -w /app node:18 npm install'
+                sh 'npm install'
             }
         }
 
         stage('Lint') {
             steps {
-                sh 'docker run --rm -v $WORKSPACE:/app -w /app node:18 npm run lint'
+                sh 'npm run lint'
             }
         }
 
