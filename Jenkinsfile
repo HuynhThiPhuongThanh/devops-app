@@ -2,18 +2,17 @@ pipeline {
     agent any
 
     stages {
+stage('Install') {
+    steps {
+        sh 'docker run --rm -v $PWD:/app -w /app node:18 npm install'
+    }
+}
 
-        stage('Install') {
-            steps {
-                sh 'docker run --rm -v $PWD:/app -w /app node:18 npm install'
-            }
-        }
-
-        stage('Lint') {
-            steps {
-                sh 'docker run --rm -v $PWD:/app -w /app node:18 npm run lint'
-            }
-        }
+stage('Lint') {
+    steps {
+        sh 'docker run --rm -v $PWD:/app -w /app node:18 npm run lint'
+    }
+}
 
         stage('Build Docker') {
             steps {
