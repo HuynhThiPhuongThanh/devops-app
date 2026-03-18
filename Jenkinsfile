@@ -8,21 +8,15 @@ pipeline {
             }
         }
 
-        stage('Install') {
+        stage('Install & Lint') {
+            agent {
+                docker {
+                    image 'node:18'
+                }
+            }
             steps {
                 sh 'npm install'
-            }
-        }
-
-        stage('Lint') {
-            steps {
                 sh 'npm run lint'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo "Run tests here"
             }
         }
 
@@ -36,15 +30,6 @@ pipeline {
             steps {
                 sh 'docker run -d -p 3000:3000 devops-app'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build Success'
-        }
-        failure {
-            echo 'Build Failed'
         }
     }
 }
